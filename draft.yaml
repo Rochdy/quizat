@@ -1,0 +1,32 @@
+models:
+  Quiz:
+    user_id: id foreign
+    title: string
+    notes: text nullable
+    starts_at: datetime nullable
+    expires_at: datetime
+    slug: string unique
+    timestamps: true
+
+  Question:
+    quiz_id: id foreign
+    question_text: text
+    timestamps: true
+
+  Answer:
+    question_id: id foreign
+    answer_text: text
+    is_correct: boolean
+    timestamps: true
+
+  QuizAttempt:
+    quiz_id: id foreign
+    student_name: string
+    student_identifier: string
+    timestamps: true
+
+  QuizAttemptAnswer:
+    quiz_attempt_id: id foreign
+    question_id: id foreign
+    answer_id: id foreign
+    timestamps: true

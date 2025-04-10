@@ -1,0 +1,22 @@
+created:
+    - database/factories/QuizFactory.php
+    - database/factories/QuestionFactory.php
+    - database/factories/AnswerFactory.php
+    - database/factories/QuizAttemptFactory.php
+    - database/factories/QuizAttemptAnswerFactory.php
+    - database/migrations/2025_04_05_054804_create_quizzes_table.php
+    - database/migrations/2025_04_05_054805_create_questions_table.php
+    - database/migrations/2025_04_05_054806_create_answers_table.php
+    - database/migrations/2025_04_05_054807_create_quiz_attempts_table.php
+    - database/migrations/2025_04_05_054808_create_quiz_attempt_answers_table.php
+    - app/Models/Quiz.php
+    - app/Models/Question.php
+    - app/Models/Answer.php
+    - app/Models/QuizAttempt.php
+    - app/Models/QuizAttemptAnswer.php
+models:
+    Quiz: { user_id: 'id foreign', title: string, notes: 'text nullable', starts_at: 'datetime nullable', expires_at: datetime, slug: 'string unique', timestamps: timestamps }
+    Question: { quiz_id: 'id foreign', question_text: text, timestamps: timestamps }
+    Answer: { question_id: 'id foreign', answer_text: text, is_correct: boolean, timestamps: timestamps }
+    QuizAttempt: { quiz_id: 'id foreign', student_name: string, student_identifier: string, timestamps: timestamps }
+    QuizAttemptAnswer: { quiz_attempt_id: 'id foreign', question_id: 'id foreign', answer_id: 'id foreign', timestamps: timestamps }
