@@ -3,14 +3,12 @@
 namespace App\Filament\Resources\QuizResource\RelationManagers;
 
 use App\Filament\Exports\QuizAttemptExporter;
-use Filament\Tables\Actions\ExportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AttemptsRelationManager extends RelationManager
 {
@@ -35,7 +33,7 @@ class AttemptsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('student_identifier')->searchable(),
                 Tables\Columns\TextColumn::make('score')->label('Score')
                     ->formatStateUsing(function ($state) {
-                        return $state . '%';
+                        return $state.'%';
                     }),
                 Tables\Columns\TextColumn::make('created_at')->label('Date')->dateTime(),
             ])
@@ -43,12 +41,12 @@ class AttemptsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                //Tables\Actions\CreateAction::make(),
-                //Tables\Actions\ExportAction::make('download')
+                // Tables\Actions\CreateAction::make(),
+                // Tables\Actions\ExportAction::make('download')
                 ExportAction::make()
                     ->exporter(QuizAttemptExporter::class)
-                ->label('Export')
-                ->color('primary')
+                    ->label('Export')
+                    ->color('primary'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

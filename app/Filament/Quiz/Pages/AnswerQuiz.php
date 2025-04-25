@@ -12,34 +12,34 @@ use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Pages\Actions\ButtonAction;
 use Filament\Pages\Page;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class AnswerQuiz extends Page implements HasForms
 {
-    use InteractsWithForms;
     use InteractsWithActions;
+    use InteractsWithForms;
 
     public ?array $data = [];
 
     public Quiz $quiz;
 
     public string $quizSlug;
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.quiz.pages.answer-quiz';
+
     protected static ?string $slug = '/{quizSlug}';
 
     protected static ?string $title = '';
+
     protected static bool $shouldRegisterNavigation = false;
+
     public function mount(): void
     {
         $this->quiz = Quiz::with('questions.answers')
@@ -66,7 +66,7 @@ class AnswerQuiz extends Page implements HasForms
                 ->hiddenLabel(true)
                 ->content(fn () => new \Illuminate\Support\HtmlString($this->quiz->notes))
                 ->extraAttributes(['class' => 'text-center']),
-            //->columnSpanFull()
+            // ->columnSpanFull()
 
             Grid::make(2)->schema([
                 TextInput::make('student_name')->required(),
@@ -106,55 +106,53 @@ class AnswerQuiz extends Page implements HasForms
                             ])
                             ->columns(2),
                     ]);
-            })->toArray()
-        ])->statePath('data')
-            ;
+            })->toArray(),
+        ])->statePath('data');
     }
 
-//    protected function getFormSchema(): array
-//    {
-//        return [
-//            Placeholder::make('quiz_title')
-//                ->hiddenLabel(true)
-//                ->content(fn () => 'Quiz: '.$this->quiz->title)
-//                ->extraAttributes(['class' => 'text-center text-xl font-bold']),
-//
-//            Placeholder::make('quiz_owner')
-//                ->hiddenLabel(true)
-//                ->content(fn () => 'By: '.$this->quiz->user->name)
-//                ->extraAttributes(['class' => 'text-center text-xl font-bold']),
-//
-//            Placeholder::make('quiz_notes')
-//                ->hiddenLabel(true)
-//                ->content(fn () => new \Illuminate\Support\HtmlString($this->quiz->notes))
-//                ->extraAttributes(['class' => 'text-center']),
-//                //->columnSpanFull()
-//
-//            Grid::make(2)->schema([
-//                TextInput::make('student_name')->required(),
-//                TextInput::make('student_identifier')->required(),
-//            ]),
-//
-//            ...$this->quiz->questions->map(function ($question) {
-//                return Fieldset::make('')
-//                    ->label('')
-//                    ->schema([
-//                        \Filament\Forms\Components\Placeholder::make("question_{$question->id}_text")
-//                            ->hiddenLabel(true)
-//                            ->content(new \Illuminate\Support\HtmlString($question->question_text)),
-//
-//                        CheckboxList::make("answers.{$question->id}")
-//                            ->hiddenLabel(true)
-//                            ->options($question->answers->pluck('answer_text', 'id'))
-//                            ->columns(2),
-//                    ]);
-//            })->toArray()
-//        ];
-//    }
+    //    protected function getFormSchema(): array
+    //    {
+    //        return [
+    //            Placeholder::make('quiz_title')
+    //                ->hiddenLabel(true)
+    //                ->content(fn () => 'Quiz: '.$this->quiz->title)
+    //                ->extraAttributes(['class' => 'text-center text-xl font-bold']),
+    //
+    //            Placeholder::make('quiz_owner')
+    //                ->hiddenLabel(true)
+    //                ->content(fn () => 'By: '.$this->quiz->user->name)
+    //                ->extraAttributes(['class' => 'text-center text-xl font-bold']),
+    //
+    //            Placeholder::make('quiz_notes')
+    //                ->hiddenLabel(true)
+    //                ->content(fn () => new \Illuminate\Support\HtmlString($this->quiz->notes))
+    //                ->extraAttributes(['class' => 'text-center']),
+    //                //->columnSpanFull()
+    //
+    //            Grid::make(2)->schema([
+    //                TextInput::make('student_name')->required(),
+    //                TextInput::make('student_identifier')->required(),
+    //            ]),
+    //
+    //            ...$this->quiz->questions->map(function ($question) {
+    //                return Fieldset::make('')
+    //                    ->label('')
+    //                    ->schema([
+    //                        \Filament\Forms\Components\Placeholder::make("question_{$question->id}_text")
+    //                            ->hiddenLabel(true)
+    //                            ->content(new \Illuminate\Support\HtmlString($question->question_text)),
+    //
+    //                        CheckboxList::make("answers.{$question->id}")
+    //                            ->hiddenLabel(true)
+    //                            ->options($question->answers->pluck('answer_text', 'id'))
+    //                            ->columns(2),
+    //                    ]);
+    //            })->toArray()
+    //        ];
+    //    }
 
     public function submit()
     {
-
 
         $data = $this->form->getState();
 
@@ -173,7 +171,7 @@ class AnswerQuiz extends Page implements HasForms
         }
 
         ProcessQuizAttempt::dispatch($attempt);
-        //$this->render('thanks');
+        // $this->render('thanks');
 
         $this->redirect('/thanks');
     }
@@ -181,7 +179,7 @@ class AnswerQuiz extends Page implements HasForms
     protected function getFormActions(): array
     {
         return [
-            Action::make('submitAnswers')
+            Action::make('submitAnswers'),
         ];
     }
 
@@ -195,6 +193,7 @@ class AnswerQuiz extends Page implements HasForms
         dd(3333);
 
     }
+
     protected function getHeaderActions(): array
     {
         return [
@@ -207,6 +206,7 @@ class AnswerQuiz extends Page implements HasForms
                 ->modal(function () {
                     try {
                         $this->form->getState();
+
                         return true;
                     } catch (\Exception $e) {
                         return false;
@@ -215,5 +215,4 @@ class AnswerQuiz extends Page implements HasForms
                 ->action(fn () => $this->form->validate() && $this->submit()),
         ];
     }
-
 }

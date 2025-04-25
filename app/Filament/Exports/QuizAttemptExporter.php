@@ -14,8 +14,8 @@ class QuizAttemptExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-//            ExportColumn::make('id')
-//                ->label('ID'),
+            //            ExportColumn::make('id')
+            //                ->label('ID'),
             ExportColumn::make('quiz.title'),
             ExportColumn::make('student_name'),
             ExportColumn::make('student_identifier'),
@@ -26,10 +26,10 @@ class QuizAttemptExporter extends Exporter
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your quiz attempt export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Your quiz attempt export has completed and '.number_format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' '.number_format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
         }
 
         return $body;

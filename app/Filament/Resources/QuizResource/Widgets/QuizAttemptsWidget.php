@@ -15,10 +15,10 @@ class QuizAttemptsWidget extends BaseWidget
         $highest = $this->record->attempts->sortByDesc('score')->first();
         $lowest = $this->record->attempts->sortBy('score')->first();
 
-        $highestTitle = is_null($highest) ? 'No scores yet' : $highest->score . '%';
-        $lowestTitle = is_null($lowest) ? 'No scores yet' : $lowest->score . '%';
+        $highestTitle = is_null($highest) ? 'No scores yet' : $highest->score.'%';
+        $lowestTitle = is_null($lowest) ? 'No scores yet' : $lowest->score.'%';
 
-        //return  By: ' . $highest->student_name;
+        // return  By: ' . $highest->student_name;
         return [
             Stat::make('Total Attempts', $this->record->attempts->count())
                 ->icon('heroicon-m-chart-bar-square')

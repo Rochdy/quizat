@@ -20,7 +20,7 @@ class QuizAttempt extends Model
         'quiz_id',
         'student_name',
         'student_identifier',
-        'score'
+        'score',
     ];
 
     /**

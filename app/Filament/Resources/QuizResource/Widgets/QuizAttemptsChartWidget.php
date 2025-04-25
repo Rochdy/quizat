@@ -9,8 +9,11 @@ use Filament\Widgets\ChartWidget;
 class QuizAttemptsChartWidget extends ChartWidget
 {
     protected static ?string $heading = 'Number of students with their scores';
+
     public ?Quiz $record = null;
-    public int | string | array $columnSpan = 'full';
+
+    public int|string|array $columnSpan = 'full';
+
     protected function getData(): array
     {
         $data = QuizAttempt::where('quiz_id', $this->record->id)
@@ -23,10 +26,10 @@ class QuizAttemptsChartWidget extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Number of Students',
-                    'data' => $data->values()
+                    'data' => $data->values(),
                 ],
             ],
-            'labels' => $data->keys()->map(fn ($score) => $score . '%')->values(),
+            'labels' => $data->keys()->map(fn ($score) => $score.'%')->values(),
         ];
     }
 

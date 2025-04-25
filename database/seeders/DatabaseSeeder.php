@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'name' => 'Daniel Craig',
             'email' => 'admin@example.com',
-            'password' => bcrypt('admin')
+            'password' => bcrypt('admin'),
         ]);
 
         // 2. Create a quiz
@@ -134,7 +134,7 @@ class DatabaseSeeder extends Seeder
                 Answer::create([
                     'question_id' => $q->id,
                     'answer_text' => $answer,
-                    'is_correct' => $is_correct
+                    'is_correct' => $is_correct,
                 ]);
             }
 
@@ -145,7 +145,7 @@ class DatabaseSeeder extends Seeder
                 'quiz_id' => $quiz->id,
                 'student_name' => fake()->name(),
                 'student_identifier' => fake()->randomNumber(7),
-                'score' => fake()->randomElement([10,40,50,70,100]),
+                'score' => fake()->randomElement([10, 40, 50, 70, 100]),
             ]);
 
         }

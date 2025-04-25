@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,7 +27,7 @@ class Quiz extends Model
         'starts_at',
         'expires_at',
         'slug',
-        'is_available'
+        'is_available',
     ];
 
     /**
@@ -67,8 +67,7 @@ class Quiz extends Model
                 $now = Carbon::now();
                 $query->where('starts_at', '<=', $now)
                     ->where('expires_at', '>=', $now);
-            })
-        ;
+            });
     }
 
     protected static function booted()

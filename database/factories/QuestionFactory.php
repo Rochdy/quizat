@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Question;
 use App\Models\Quiz;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QuestionFactory extends Factory
 {
